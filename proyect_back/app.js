@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database = require("./config/database");
+var auth= require("./auth/main_auth");
 
 var productRouter = require('./routes/products.router');
 
@@ -16,7 +17,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Mongo connection
+
 database.mongoConnect();
+app.use(auth);
 
 // Router
 
