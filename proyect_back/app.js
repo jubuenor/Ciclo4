@@ -5,9 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var database = require("./config/database");
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var userRouter = require('./routes/user.router');
+var productRouter = require('./routes/products.router');
 
 var app = express();
 
@@ -22,9 +20,7 @@ database.mongoConnect();
 
 // Router
 
-app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-app.use('/user', userRouter);
+app.use('/products', productRouter);
 
 
 // catch 404 and forward to error handler
