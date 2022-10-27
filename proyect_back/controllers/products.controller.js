@@ -7,6 +7,7 @@ let response= {
 
 exports.create = (req,res)=>{
     let product = new Product({
+        _id: req.body._id,
         nombre: req.body.nombre,
         categoria: req.body.categoria,
         restaurante: req.body.restaurante,
@@ -64,14 +65,17 @@ exports.update = (req,res)=>{
 }
 
 exports.remove = (req,res)=>{
-    let product = ({
-        nombre: req.body.nombre,
-        categoria: req.body.categoria,
-        restaurante: req.body.restaurante,
-        precio: req.body.precio,
-        descripcion: req.body.descripcion
-    });
-    Product.findByIdAndRemove(req.params.id,{$set: product},
+
+//     let product = ({
+//         nombre: req.body.nombre,
+//         categoria: req.body.categoria,
+//         restaurante: req.body.restaurante,
+//         precio: req.body.precio,
+//         descripcion: req.body.descripcion
+//     });
+// ,{$set: product}
+
+    Product.findByIdAndRemove(req.params.id,
         (err)=>{
         if(err){
             console.log(err),
