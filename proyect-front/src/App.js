@@ -1,11 +1,11 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Main from './components/Main';
+import Routes from './components/Routes';
 
 function App() {
   return (
     <div>
-      <Main></Main>
+      <Routes></Routes>
     </div>
   );
 }

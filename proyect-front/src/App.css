@@ -9,3 +9,24 @@
 .card:hover { 
   transform: scale(1.1); 
 }
+
+.show-enter {
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.show-enter-active {
+  opacity: 0;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.show-exit {
+  opacity: 1;
+}
+
+.show-exit-active {
+  opacity: 0;
+  transform: translateX(50%);
+  transition: opacity 300ms, transform 300ms;
+}

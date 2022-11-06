@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Menu from './Menu';
-import Login from './Login';
 
 class Main extends Component {
     constructor(props) {
@@ -13,10 +12,9 @@ class Main extends Component {
     render() { 
         return (
             <div style={{backgroundColor: '#ffffff'}}>
-            {/* <Header></Header>
+            <Header></Header>
             <Menu></Menu>
-            <Footer></Footer> */}
-            <Login></Login>
+            <Footer></Footer>
             </div>
 
         );
