@@ -5,8 +5,6 @@ import app from '../app.json';
 import Cookies from 'universal-cookie';
 import {SessionTime} from './helper';
 import Loading from './loading';
-import {redirect} from "react-router-dom";
-import { withRouter } from './withRouter';
 import { useNavigate } from 'react-router-dom';
 
 const withNavigate = Component => props => {
@@ -32,8 +30,6 @@ class LoginForm extends Component {
     cambiar(){
         this.props.navigate('/home');
     }
-
-
     login(){
         
         this.setState({loading:true});
@@ -50,6 +46,7 @@ class LoginForm extends Component {
                 path:'/',
                 expires: SessionTime()
                 })
+                this.props.isLogged(true);
                 this.cambiar();
                 // this.props.history.push("/home");
             }else{

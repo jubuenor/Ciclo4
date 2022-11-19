@@ -7,7 +7,9 @@ class Header extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
+    console.log(this.props.logged);
     return (
         <Navbar expand="lg" className="p-2 nav-bg fixed-top">
             <Navbar.Brand href="">
@@ -35,13 +37,18 @@ class Header extends Component {
                 <Form.Control placeholder="Buscar"/>
                 <Button variant="outline-secondary"> <BsSearch/> Buscar </Button>
             </InputGroup>
-            <Nav className="me-4">
-                <Button href="" className="ms-5" variant="outline-secondary"><BsBasket/></Button>
-                <NavDropdown title="Usuario" className="ms-2 rounded border border-dark">
-                    <NavDropdown.Item href=""><BsPersonCircle/> Mi perfil</NavDropdown.Item>
-                    <NavDropdown.Item href=""><BsDoorOpen/> Cerrar sesion</NavDropdown.Item>
-                </NavDropdown>
-            </Nav>
+            {
+                this.props.logged?
+                <Nav className="me-4">
+                    <Button href="" className="ms-5" variant="outline-secondary"><BsBasket/></Button>
+                    <NavDropdown title="Usuario" className="ms-2 rounded border border-dark">
+                        <NavDropdown.Item href=""><BsPersonCircle/> Mi perfil</NavDropdown.Item>
+                        <NavDropdown.Item href=""><BsDoorOpen/> Cerrar sesion</NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
+                :null
+            }
+            
             
             
         </Navbar>

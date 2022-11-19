@@ -3,6 +3,7 @@
 }
 
 .card{ 
+  cursor: pointer;
   transition: all .4s ease-in-out; 
 }
   

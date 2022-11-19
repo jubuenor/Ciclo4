@@ -1,5 +1,5 @@
 import {Component,React, createRef} from 'react';
-import {Nav, Navbar, Button} from 'react-bootstrap';
+import {Button, Container} from 'react-bootstrap';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import {TransitionGroup,CSSTransition} from 'react-transition-group';
@@ -18,13 +18,12 @@ class Login extends Component {
         
         return ( 
             <>
-            <Nav className='nav-bg'>
+            {/* <Nav className='nav-bg'>
                 <Navbar.Brand href="" className='m-auto'>
                     <img src="/images/logonav.png" alt='logonav' width="200px" className="rounded-2 border border-dark"></img>
                 </Navbar.Brand>
-                <Button variant="warning" className="mt-auto mb-auto p-1 me-2" onClick={()=>{this.setState({show:true})}}>{this.state.toggle?"Ingresar":"Registrarse"}</Button>
-            </Nav>
-            <div className='container-fluid'>
+            </Nav> */}
+            <div className='container-fluid mt-5'>
                 <div className='row'>
                     <div className='col-xs-12 col-md-12 col-lg-12 col-xl-6'>
                         <div className='container mt-5' >
@@ -46,12 +45,16 @@ class Login extends Component {
                                     this.state.toggle?
                                     <RegisterForm></RegisterForm>
                                     :
-                                    <LoginForm ></LoginForm>
+                                    <LoginForm isLogged={this.props.isLogged}></LoginForm>
                                     }
                                     </div>
                                 </CSSTransition>
                             </TransitionGroup>
                         </div>
+                        <Container className='mt-5 d-flex justify-content-center'>
+                            <Button variant="success" className="mt-auto mb-auto p-1 me-2" onClick={()=>{this.setState({show:true})}}>{this.state.toggle?"Ingresa aquí":"Registrate aquí"}</Button>    
+                        </Container>
+                        
                     </div>
                 </div>
             </div>
