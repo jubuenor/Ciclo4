@@ -33,30 +33,24 @@ class Login extends Component {
                     </div>
                     <div className='col-xs-12 col-md-12 col-lg-12 col-xl-4 container'>
                         <div className='pt-5'>
-                            
-                        <TransitionGroup>
-
-                            <CSSTransition timeout={300}  key={this.state.show} classNames="show" mountOnEnter unmountOnExit  nodeRef={itemRef}
-                            onEntered={()=>{
-                                this.setState({toggle:!this.state.toggle});
-                                console.log("a");
-                            }}
-                            onExit={()=>{
-                                this.setState({show:false})
-                                console.log("aa");
-                            }}>
-                                <div ref={itemRef}>
-                                {
-                                this.state.toggle?
-                                <RegisterForm></RegisterForm>
-                                :
-                                <LoginForm ></LoginForm>
-                                }
-                                </div>
-                            </CSSTransition>
-                        </TransitionGroup>
-                                
-                            
+                            <TransitionGroup>
+                                <CSSTransition timeout={300}  key={this.state.show} classNames="show" mountOnEnter unmountOnExit  nodeRef={itemRef}
+                                onEntered={()=>{
+                                    this.setState({toggle:!this.state.toggle});
+                                }}
+                                onExit={()=>{
+                                    this.setState({show:false})
+                                }}>
+                                    <div ref={itemRef}>
+                                    {
+                                    this.state.toggle?
+                                    <RegisterForm></RegisterForm>
+                                    :
+                                    <LoginForm ></LoginForm>
+                                    }
+                                    </div>
+                                </CSSTransition>
+                            </TransitionGroup>
                         </div>
                     </div>
                 </div>
