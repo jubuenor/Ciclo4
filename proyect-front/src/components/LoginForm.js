@@ -31,30 +31,24 @@ class LoginForm extends Component {
         this.props.navigate('/home');
     }
     login(){
-        
         this.setState({loading:true});
-
-        console.log(`user: ${this.state.usuario} pass: ${this.state.pass}`);
         axios.post(`${APIHOST}/users/login/`,{
             usuario: this.state.usuario,
             pass: this.state.pass,
         }
         ).then((response)=>{
             if(response.data.token!==null){
-                console.log("token");
                 cookies.set('_s',response.data.token,{
                 path:'/',
                 expires: SessionTime()
                 })
                 this.props.isLogged(true);
                 this.cambiar();
-                // this.props.history.push("/home");
             }else{
                 this.setState({showError:true});
             }
             this.setState({loading:false});
         }).catch((error)=>{
-            console.log(error);
             this.setState({loading:false});
         });
     }

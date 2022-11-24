@@ -15,9 +15,6 @@ class Loading extends Component {
                     </div>
                 :null}
             </>
-            
-            
-
          );
     }
 }

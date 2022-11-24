@@ -24,7 +24,6 @@ class appRoutes extends Component {
     }
     
     render() { 
-        console.log(this.state.logged);
         return (
             <>
             <Header logged={this.state.logged}></Header>
