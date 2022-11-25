@@ -6,6 +6,8 @@ var logger = require('morgan');
 var database = require("./config/database");
 var auth = require("./auth/main_auth");
 
+var categoryRouter = require('./routes/category.router')
+var restaurantRouter = require('./routes/restaurant.router');
 var productRouter = require('./routes/products.router');
 var userRouter = require('./routes/users.router');
 
@@ -27,7 +29,8 @@ app.use('/users',userRouter);
 app.use(auth);
 
 // Router
-
+app.use('/category', categoryRouter)
+app.use('/restaurant',restaurantRouter);
 app.use('/products', productRouter);
 
 
