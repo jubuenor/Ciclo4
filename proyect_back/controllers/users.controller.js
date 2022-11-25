@@ -9,8 +9,8 @@ let response= {
 
 exports.login = (req,res,next)=>{
     let hashedpass = crypto.createHash("sha512").update(req.body.pass).digest("hex");
-
     User.findOne({usuario:req.body.usuario, pass: hashedpass},(err,user)=>{
+        console.log(err);
         let response={
             token:null
         }
@@ -23,6 +23,7 @@ exports.login = (req,res,next)=>{
         }
         res.json(response);
     });
+    
 
 }
 
