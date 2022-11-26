@@ -1,7 +1,7 @@
 // importar las rutas
 const express = require("express");
 const router = express.Router();
-const empleadosController = require("../controllers/category.cotroller");
+const categoryController = require("../controllers/category.cotroller");
 
 //para crear el route, comenzar a testear con postman
 router.post("/", categoryController.create)// envio de datos con .create 

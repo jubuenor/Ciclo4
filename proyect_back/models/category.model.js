@@ -3,7 +3,7 @@ const Schema = moongose.Schema;
 
 const CategoryShema = new Schema({
     _id:{type: Number, required: true},
-    id_restuaurante:{type: String, required:true, max:60},
+    id_restaurante:{type: String, required:true, max:60},
     nombre:{type: String, required:true, max:60},
 })
 

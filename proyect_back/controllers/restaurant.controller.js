@@ -7,7 +7,7 @@ let response = {
 
 exports.create = function (req,res) {
     let restaurant = new Restaurant({
-        _id: req.body.id, /*segun tengo entendido mongo crea un id*/
+        _id: req.body._id, /*segun tengo entendido mongo crea un id*/
         nombre: req.body.nombre
     })
     restaurant.save(function(err){
@@ -33,14 +33,14 @@ exports.find = (req,res)=>{
 
 
 exports.findOne = function(req,res) {
-    Restaurant.findOne({_id: req.params.id}, function(err, restaurant){
+    Restaurant.findOne({_id: req.params._id}, function(err, restaurant){
         res.json(restaurant)
     })
 }
 
 exports.update = function (req,res) {
     let restaurant = new Restaurant({
-        _id: req.body.id,
+        _id: req.body._id,
         nombre: req.body.nombre
     })
     Restaurant.findByIdAndUpdate(req.params.id,{$set: restaurant},function(err){
@@ -60,7 +60,7 @@ exports.update = function (req,res) {
 
 exports.remove = function(req,res){  
     
-    Restaurant.findByIdAndRemove({_id: req.params.id},function(err){
+    Restaurant.findByIdAndRemove({_id: req.params._id},function(err){
         if (err) {
             console.error(err),
             response.exito = false,

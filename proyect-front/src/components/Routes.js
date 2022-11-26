@@ -15,22 +15,32 @@ class appRoutes extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            logged:checkAuth()
+            logged:checkAuth(),
+            restaurant:0,
+            busqueda:""
          };
          this.isLogged=this.isLogged.bind(this);
+         this.setRestaurant=this.setRestaurant.bind(this);
+         this.buscar=this.buscar.bind(this);
     }
     isLogged(evt){
         this.setState({logged:evt})
     }
-    
+    setRestaurant(id){
+        this.setState({busqueda:""});
+        this.setState({restaurant:id});
+    }
+    buscar(busqueda){
+        this.setState({busqueda:busqueda});
+    }
     render() { 
         return (
             <>
-            <Header logged={this.state.logged}></Header>
+            <Header logged={this.state.logged} setRestaurant={this.setRestaurant} buscar={this.buscar}></Header>
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<PrivateRoute></PrivateRoute>}>
-                        <Route exact path="/home" element={<Menu></Menu>}></Route>
+                        <Route exact path="/home" element={<Menu restaurant={this.state.restaurant}  setRestaurant={this.setRestaurant} buscar={this.state.busqueda}></Menu>}></Route>
                     </Route>
                     {/* <Route path="*" element={<Login></Login>}></Route> */}
                     <Route exact path="/login" element={<Login isLogged={this.isLogged}></Login>}></Route>

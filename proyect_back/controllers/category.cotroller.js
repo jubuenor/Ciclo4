@@ -7,8 +7,8 @@ let response = {
 
 exports.create = function (req,res) {
     let category = new Category({
-        _id: req.body.id, /*segun tengo entendido mongo crea un id*/
-        id_restuaurante: req.body.id_restuaurante,
+        _id: req.body._id, /*segun tengo entendido mongo crea un id*/
+        id_restaurante: req.body.id_restaurante,
         nombre: req.body.nombre
     })
     category.save(function(err){
@@ -34,18 +34,18 @@ exports.find = (req,res)=>{
 
 
 exports.findOne = function(req,res) {
-    Category.findOne({_id: req.params.id}, function(err, category){
+    Category.findOne({_id: req.params._id}, function(err, category){
         res.json(category)
     })
 }
 
 exports.update = function (req,res) {
     let category = new Category({
-        _id: req.body.id,
-        id_restuaurante: req.body.id_restuaurante,
+        _id: req.body._id,
+        id_restaurante: req.body.id_restaurante,
         nombre: req.body.nombre
     })
-    Category.findByIdAndUpdate(req.params.id,{$set: category},function(err){
+    Category.findByIdAndUpdate(req.params._id,{$set: category},function(err){
         if (err) {
             console.error(err),
             response.exito = false,
@@ -62,7 +62,7 @@ exports.update = function (req,res) {
 
 exports.remove = function(req,res){   //Elimina un empleado
     
-    Category.findByIdAndRemove({_id: req.params.id},function(err){
+    Category.findByIdAndRemove({_id: req.params._id},function(err){
         if (err) {
             console.error(err),
             response.exito = false,

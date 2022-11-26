@@ -22,14 +22,12 @@ class RegisterForm extends Component {
     }
     register(){
         axios.post(`${APIHOST}/users/register`,{
-            _id:'6',
             usuario:this.state.usuario,
             pass:this.state.pass,
             nombre:this.state.nombre,
             apellido:this.state.apellido,
             email:this.state.email,
             saldo:this.state.saldo,
-            tipo:'0',
         }).then((response)=>{
             console.log(response);
         }).catch((response)=>{

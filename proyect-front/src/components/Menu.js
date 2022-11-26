@@ -56,7 +56,7 @@ function RenderProductItem({props,toggleModal}){
                 <Card.Body>
                     <Card.Title>{props.nombre}</Card.Title>
                     <Card.Text>
-                    {props.descripcion}
+                    {props.descripcion.slice(0,77)+" ..."}
                     </Card.Text>
                     {/* <Card.Title>$ 20.000</Card.Title> */}
                 </Card.Body>
@@ -72,9 +72,11 @@ class Menu extends Component {
             products:[],
             showModal:false,
             productDetail:{},
+            restaurants:[]
          };
          this.toggleModal=this.toggleModal.bind(this);
          this.getProducts=this.getProducts.bind(this);
+         this.getRestaurants=this.getRestaurants.bind(this);
     }
     toggleModal(product){
         this.setState({showModal:!this.state.showModal});
@@ -82,6 +84,7 @@ class Menu extends Component {
     }
     componentDidMount(){
         this.getProducts();
+        this.getRestaurants();
     }
     getProducts(){    
         request.get('/products')
@@ -91,19 +94,44 @@ class Menu extends Component {
             console.log(err);
         });
     }
+    getRestaurants(){
+        request.get('/restaurant')
+        .then((response)=>{
+            this.setState({restaurants:response.data});
+        }).catch((err)=>{
+            console.log(err);
+        });
+      }
     render() { 
-        const menu=this.state.products.map((product)=>{
-            return(
-                <RenderProductItem props={product} key={product._id} toggleModal={this.toggleModal}></RenderProductItem>
-            );
+        const menu=(restaurant,buscar)=>this.state.products.map((product)=>{
+            if(buscar===""){
+                if(restaurant===0){
+                    return(
+                        <RenderProductItem props={product} key={product._id} toggleModal={this.toggleModal}></RenderProductItem>
+                    );
+                }else if(restaurant!==0){
+                    if(restaurant==product.restaurante){
+                        return(
+                            <RenderProductItem props={product} key={product._id} toggleModal={this.toggleModal}></RenderProductItem>
+                        )
+                    }
+                }
+            }else{
+                if(product.nombre.toUpperCase().includes(buscar.toUpperCase())){
+                    return(
+                        <RenderProductItem props={product} key={product._id} toggleModal={this.toggleModal}></RenderProductItem>
+                    )
+                }
+            }
+            
         });
         return ( 
 
             <div className='container' style={{ marginTop: '6rem' }}>
                 <div className="row">
                     <Breadcrumb>
-                        <BreadcrumbItem>Home</BreadcrumbItem>
-                        <BreadcrumbItem active>Todos</BreadcrumbItem>
+                        <BreadcrumbItem onClick={()=>{this.props.setRestaurant(0)}}>Home</BreadcrumbItem>
+                        <BreadcrumbItem active>{this.props.restaurant==0?"Todos":this.state.restaurants.filter(restaurant=>restaurant._id==this.props.restaurant)[0].nombre}</BreadcrumbItem>
                     </Breadcrumb >
                 </div>
                 {this.state.showModal?
@@ -113,7 +141,7 @@ class Menu extends Component {
                 
                 <Loading show={this.state.products.length>0?false:true}></Loading>
                 <div className='container d-flex flex-wrap justify-content-evenly'>
-                    {menu}
+                    {menu(this.props.restaurant,this.props.buscar)} 
                 </div>
                 
 
