@@ -35,5 +35,26 @@ export const request={
                 Authorization: `Bearer ${token}`
             }
         });
+    },
+    post:function(services,body){
+        let token = renovarSesion();
+        return axios.post(`${APIHOST}${services}`,body,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        });
+    },
+    remove:function(services){
+        let token = renovarSesion();
+        return axios.delete(`${APIHOST}${services}`,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 };
+
+export function logout(){
+    cookies.remove('_s');
+    window.location.reload();
+}

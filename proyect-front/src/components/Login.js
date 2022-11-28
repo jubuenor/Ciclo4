@@ -18,11 +18,6 @@ class Login extends Component {
         
         return ( 
             <>
-            {/* <Nav className='nav-bg'>
-                <Navbar.Brand href="" className='m-auto'>
-                    <img src="/images/logonav.png" alt='logonav' width="200px" className="rounded-2 border border-dark"></img>
-                </Navbar.Brand>
-            </Nav> */}
             <div className='container-fluid mt-5'>
                 <div className='row'>
                     <div className='col-xs-12 col-md-12 col-lg-12 col-xl-6'>

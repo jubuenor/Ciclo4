@@ -68,8 +68,9 @@ exports.remove = (req,res)=>{
 }
 
 exports.findOne = (req,res)=>{
-    User.findOne({_id: req.params.id},(err,product)=>{
-        res.json(product);
+    let token= jwt.decode(req.params.token)
+    User.findOne({_id: token.id},(err,user)=>{
+        res.json(user);
     });
 }
 

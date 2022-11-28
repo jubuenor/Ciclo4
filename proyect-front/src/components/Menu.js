@@ -1,51 +1,9 @@
 import {Component} from 'react';
-import { Breadcrumb, BreadcrumbItem, Card, Button, Modal, Container, Form } from 'react-bootstrap';
-import { AiFillStar} from 'react-icons/ai';
+import {Breadcrumb, BreadcrumbItem, Card, Button, Modal, Container, Form } from 'react-bootstrap';
 import {request} from './helper';
 import Loading from './loading';
-
-
-
-function DishDetail({props,toggleModal}) {
-
-    console.log(props);
-    return (
-        <Modal show={true} centered size='xl'>
-            <Modal.Header>
-            <Modal.Title>{props.nombre} - {props.restaurante}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className='d-flex'>
-                <img src={`/images/comidas/${props._id}.jpg`} className='rounded-3' width={546} height={546} alt={props._id}></img>
-                <Container className='d-flex flex-column align-items-center justify-content-center'>
-                    <Card.Subtitle>{props.descripcion}</Card.Subtitle>
-                    <Container className='mt-5'>
-                        <Form.Label>¿Como quieres que te llegue?</Form.Label>
-                        <Form.Group className='mb-5 container-fluid'>
-                            <Form.Control as='textarea' placeholder='¿Sin tomate?' rows={4}></Form.Control>
-                        </Form.Group>
-                        <Container className='d-flex'>
-                            <Container>
-                                <Form.Label>Cantidad</Form.Label>
-                                <Form.Group className='mb-5 d-flex'>
-                                    <Form.Control as='input' type='number' min={1} defaultValue={1} rows={4}></Form.Control>
-                                </Form.Group>
-                            </Container>
-                            <Container>
-                                <Form.Label>Precio</Form.Label>
-                                <h5>{props.precio}</h5>
-                            </Container>
-                        </Container>
-                    </Container>
-                </Container>
-            </Modal.Body>
-            <Modal.Footer>
-                <div className='me-5'><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar> Popular</div>
-            <Button variant="success" onClick={toggleModal}>Comprar</Button>
-            <Button variant="primary" onClick={toggleModal}>Cerrar</Button>
-            </Modal.Footer>
-        </Modal>
-    );
-}
+import DishDetail from './DishDetail';
+import {getSession} from './helper';
 
 function RenderProductItem({props,toggleModal}){
 
@@ -72,11 +30,13 @@ class Menu extends Component {
             products:[],
             showModal:false,
             productDetail:{},
-            restaurants:[]
+            restaurants:[],
+            user:{}
          };
          this.toggleModal=this.toggleModal.bind(this);
          this.getProducts=this.getProducts.bind(this);
          this.getRestaurants=this.getRestaurants.bind(this);
+         this.getUsuario=this.getUsuario.bind(this);
     }
     toggleModal(product){
         this.setState({showModal:!this.state.showModal});
@@ -85,6 +45,7 @@ class Menu extends Component {
     componentDidMount(){
         this.getProducts();
         this.getRestaurants();
+        this.getUsuario();
     }
     getProducts(){    
         request.get('/products')
@@ -101,7 +62,16 @@ class Menu extends Component {
         }).catch((err)=>{
             console.log(err);
         });
-      }
+    }
+    getUsuario(){
+        const token=getSession();
+        request.get(`/users/${token}`)
+        .then((response)=>{
+            this.setState({user:response.data});
+        }).catch((err)=>{
+            console.log(err);
+        });
+    }
     render() { 
         const menu=(restaurant,buscar)=>this.state.products.map((product)=>{
             if(buscar===""){
@@ -125,17 +95,25 @@ class Menu extends Component {
             }
             
         });
+        const restAct=()=>{
+            try{
+                let nombre=this.state.restaurants.filter(restaurant=>restaurant._id==this.props.restaurant)[0].nombre;
+                return nombre;
+            }catch(e){
+                return "";
+            }
+        }
         return ( 
 
-            <div className='container' style={{ marginTop: '6rem' }}>
+            <div className='container' style={{ marginTop: '6rem'}}>
                 <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem onClick={()=>{this.props.setRestaurant(0)}}>Home</BreadcrumbItem>
-                        <BreadcrumbItem active>{this.props.restaurant==0?"Todos":this.state.restaurants.filter(restaurant=>restaurant._id==this.props.restaurant)[0].nombre}</BreadcrumbItem>
+                        <BreadcrumbItem active>{this.props.restaurant==0?"Todos":restAct()}</BreadcrumbItem>
                     </Breadcrumb >
                 </div>
                 {this.state.showModal?
-                <DishDetail toggleModal={this.toggleModal} props={this.state.productDetail}></DishDetail>
+                <DishDetail toggleModal={this.toggleModal} props={this.state.productDetail} user={this.state.user}></DishDetail>
                 :null
                 }
                 

@@ -33,7 +33,7 @@ exports.find = (req,res)=>{
 
 
 exports.findOne = function(req,res) {
-    Restaurant.findOne({_id: req.params._id}, function(err, restaurant){
+    Restaurant.findOne({_id: req.params.id}, function(err, restaurant){
         res.json(restaurant)
     })
 }
@@ -60,7 +60,7 @@ exports.update = function (req,res) {
 
 exports.remove = function(req,res){  
     
-    Restaurant.findByIdAndRemove({_id: req.params._id},function(err){
+    Restaurant.findByIdAndRemove({_id: req.params.id},function(err){
         if (err) {
             console.error(err),
             response.exito = false,

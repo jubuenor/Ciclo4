@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import {Nav, Navbar, NavDropdown, Form, InputGroup, Button} from 'react-bootstrap';
 import { BsSearch, BsBasket, BsPersonCircle, BsDoorOpen} from "react-icons/bs";
 import {request} from './helper';
+import {Link} from 'react-router-dom';
+import {logout} from './helper';
 
 class Header extends Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class Header extends Component {
   render() {
     const restaurant=this.state.restaurants.map((restaurant)=>{
         return (
-            <NavDropdown.Item href="" key={restaurant._id} onClick={()=>this.props.setRestaurant(restaurant._id)}>{restaurant.nombre}</NavDropdown.Item>
+            <Link to="/home" className="dropdown-item" key={restaurant._id} onClick={()=>this.props.setRestaurant(restaurant._id)}>{restaurant.nombre}</Link>
         );
     });
     return (
@@ -44,7 +46,7 @@ class Header extends Component {
                 <Navbar.Collapse id="navbar">
                     <Nav className="me-auto">
                         <Nav.Item>
-                            <Nav.Link href="">Inicio</Nav.Link>
+                            <Link to="/home" className="nav-link">Inicio</Link>
                         </Nav.Item>
                         <NavDropdown title="Restaurantes">  
                             {restaurant}         
@@ -54,13 +56,14 @@ class Header extends Component {
                 </Navbar.Collapse>
                 <InputGroup className="ms-5 me-5">
                     <Form.Control placeholder="Buscar" onChange={(u)=>this.setState({busqueda:u.target.value})}/>
-                    <Button variant="outline-secondary" onClick={()=>this.props.buscar(this.state.busqueda)}> <BsSearch/> Buscar </Button>
+                    <Link to="/home" className="btn border border-dark" onClick={()=>this.props.buscar(this.state.busqueda)}><BsSearch/> Buscar</Link>
+                    
                 </InputGroup>
                 <Nav className="me-4">
-                    <Button href="" className="ms-5" variant="outline-secondary"><BsBasket/></Button>
+                    <Link to="/cart" className=" btn ms-5 border border-dark"><BsBasket/></Link>
                     <NavDropdown title="Usuario" className="ms-2 rounded border border-dark">
                         <NavDropdown.Item href=""><BsPersonCircle/> Mi perfil</NavDropdown.Item>
-                        <NavDropdown.Item href=""><BsDoorOpen/> Cerrar sesion</NavDropdown.Item>
+                        <NavDropdown.Item href="" onClick={logout}><BsDoorOpen/> Cerrar sesion</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 </>
