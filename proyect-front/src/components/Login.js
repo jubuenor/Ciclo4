@@ -38,7 +38,7 @@ class Login extends Component {
                                     <div ref={itemRef}>
                                     {
                                     this.state.toggle?
-                                    <RegisterForm></RegisterForm>
+                                    <RegisterForm update={false}></RegisterForm>
                                     :
                                     <LoginForm isLogged={this.props.isLogged}></LoginForm>
                                     }
