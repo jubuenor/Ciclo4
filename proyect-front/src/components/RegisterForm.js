@@ -36,7 +36,16 @@ class RegisterForm extends Component {
 
 
     }
-    
+
+
+
+
+    // Mandar modalmsg en actualizar y registrar
+
+
+
+
+
     render() { 
         return ( 
             <div>

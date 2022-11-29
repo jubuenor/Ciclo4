@@ -7,6 +7,7 @@ import Menu from './Menu';
 import PrivateRoute from './auth/privaterouter';
 import Cart from './Cart';
 import {getSession} from './helper';
+import MyProfile from './MyProfile';
 
 const checkAuth=()=>{
     return getSession()?true:false;
@@ -43,6 +44,7 @@ class appRoutes extends Component {
                     <Route exact path="/" element={<PrivateRoute></PrivateRoute>}>
                         <Route exact path="/home" element={<Menu restaurant={this.state.restaurant}  setRestaurant={this.setRestaurant} buscar={this.state.busqueda}></Menu>}></Route>
                         <Route exact path="/cart" element={<Cart></Cart>}></Route>
+                        <Route exact path='/profile' element={<MyProfile></MyProfile>}></Route>
                     </Route>
                     {/* <Route path="*" element={<Login></Login>}></Route> */}
                     <Route exact path="/login" element={<Login isLogged={this.isLogged}></Login>}></Route>

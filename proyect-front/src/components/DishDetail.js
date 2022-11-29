@@ -4,6 +4,7 @@ import {BsBasket} from "react-icons/bs";
 import { AiFillStar} from 'react-icons/ai';
 import {request} from './helper';
 import {Link} from 'react-router-dom';
+import MsgModal from './MsgModal';
 
 const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0 });
 
@@ -13,10 +14,15 @@ class DishDetail extends Component {
         this.state = { 
             precio:this.props.props.precio,
             cantidad:1,
-            descripcion_cliente:""
+            descripcion_cliente:"",
+            showModal:false,
          };
          this.setPrecio=this.setPrecio.bind(this);
          this.carrito=this.carrito.bind(this);
+         this.toggleModal=this.toggleModal.bind(this);
+    }
+    toggleModal(){
+        this.setState({showModal:!this.state.showModal});
     }
     setPrecio(cant){
         this.setState({cantidad:cant});
@@ -32,6 +38,7 @@ class DishDetail extends Component {
             fecha: new Date().getDate()
         })
         .then((response)=>{
+            this.toggleModal();
             console.log(response.data)
         }).catch((err)=>{
             console.log(err);
@@ -43,7 +50,7 @@ class DishDetail extends Component {
         return ( 
             <Modal show={true} centered size='xl'>
                 <Modal.Header>
-                <Modal.Title>{this.props.props.nombre} - {this.props.props.restaurante}</Modal.Title>
+                <Modal.Title>{this.props.props.nombre}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='d-flex'>
                     <img src={`/images/comidas/${this.props.props._id}.jpg`} className='rounded-3' width={546} height={546} alt={this.props.props._id}></img>
@@ -72,6 +79,7 @@ class DishDetail extends Component {
                 <Modal.Footer>
                     <div className='me-5'><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar><AiFillStar color='red'></AiFillStar> Popular</div>
                 <Button onClick={this.carrito}><BsBasket/></Button>
+                {this.state.showModal?<MsgModal toggleModal={this.toggleModal} msg="Producto añadido con éxito"></MsgModal>:null}
                 <Link to="/cart" className="btn btn-success" onClick={this.carrito}>Comprar</Link>
                 <Button variant="secondary" onClick={this.props.toggleModal}>Cerrar</Button>
                 </Modal.Footer>

@@ -62,7 +62,7 @@ class Header extends Component {
                 <Nav className="me-4">
                     <Link to="/cart" className=" btn ms-5 border border-dark"><BsBasket/></Link>
                     <NavDropdown title="Usuario" className="ms-2 rounded border border-dark">
-                        <NavDropdown.Item href=""><BsPersonCircle/> Mi perfil</NavDropdown.Item>
+                        <Link  to="/profile" className="dropdown-item"><BsPersonCircle/> Mi perfil</Link>
                         <NavDropdown.Item href="" onClick={logout}><BsDoorOpen/> Cerrar sesion</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>

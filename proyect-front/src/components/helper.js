@@ -51,6 +51,14 @@ export const request={
                 Authorization: `Bearer ${token}`
             }
         });
+    },
+    put:function(services,body){
+        let token = renovarSesion();
+        return axios.put(`${APIHOST}${services}`,body,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 };
 
