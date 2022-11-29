@@ -116,6 +116,17 @@ class Menu extends Component {
                 <DishDetail toggleModal={this.toggleModal} props={this.state.productDetail} user={this.state.user}></DishDetail>
                 :null
                 }
+
+
+                {
+                    this.props.restaurant!=""?
+                    <Container className='text-center'>
+                        <img  src={`/images/restaurants/${this.props.restaurant}.jpg`} alt='1' width="300px" className='rounded-circle'></img>
+                    </Container>
+                    :null
+                }
+
+                
                 
                 <Loading show={this.state.products.length>0?false:true}></Loading>
                 <div className='container d-flex flex-wrap justify-content-evenly'>
